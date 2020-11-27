@@ -37,11 +37,11 @@ class cyclegan(object):
                                       args.phase == 'train'))
 
         self._build_model()
-        self.saver = tf.train.Saver()
+        self.saver = tf.compat.v1.train.Saver()
         self.pool = ImagePool(args.max_size)
 
     def _build_model(self):
-        self.real_data = tf.placeholder(tf.float32,
+        self.real_data = tf.compat.v1.placeholder(tf.float32,
                                         [None, self.image_size, self.image_size,
                                          self.input_c_dim + self.output_c_dim],
                                         name='real_A_and_B_images')
@@ -67,10 +67,10 @@ class cyclegan(object):
             + self.L1_lambda * abs_criterion(self.real_A, self.fake_A_) \
             + self.L1_lambda * abs_criterion(self.real_B, self.fake_B_)
 
-        self.fake_A_sample = tf.placeholder(tf.float32,
+        self.fake_A_sample = tf.compat.v1.placeholder(tf.float32,
                                             [None, self.image_size, self.image_size,
                                              self.input_c_dim], name='fake_A_sample')
-        self.fake_B_sample = tf.placeholder(tf.float32,
+        self.fake_B_sample = tf.compat.v1.placeholder(tf.float32,
                                             [None, self.image_size, self.image_size,
                                              self.output_c_dim], name='fake_B_sample')
         self.DB_real = self.discriminator(self.real_B, self.options, reuse=True, name="discriminatorB")
@@ -89,7 +89,7 @@ class cyclegan(object):
         self.g_loss_a2b_sum = tf.summary.scalar("g_loss_a2b", self.g_loss_a2b)
         self.g_loss_b2a_sum = tf.summary.scalar("g_loss_b2a", self.g_loss_b2a)
         self.g_loss_sum = tf.summary.scalar("g_loss", self.g_loss)
-        self.g_sum = tf.summary.merge([self.g_loss_a2b_sum, self.g_loss_b2a_sum, self.g_loss_sum])
+        self.g_sum = tf.compat.v1.summary.merge([self.g_loss_a2b_sum, self.g_loss_b2a_sum, self.g_loss_sum])
         self.db_loss_sum = tf.summary.scalar("db_loss", self.db_loss)
         self.da_loss_sum = tf.summary.scalar("da_loss", self.da_loss)
         self.d_loss_sum = tf.summary.scalar("d_loss", self.d_loss)
@@ -97,37 +97,37 @@ class cyclegan(object):
         self.db_loss_fake_sum = tf.summary.scalar("db_loss_fake", self.db_loss_fake)
         self.da_loss_real_sum = tf.summary.scalar("da_loss_real", self.da_loss_real)
         self.da_loss_fake_sum = tf.summary.scalar("da_loss_fake", self.da_loss_fake)
-        self.d_sum = tf.summary.merge(
+        self.d_sum = tf.compat.v1.summary.merge(
             [self.da_loss_sum, self.da_loss_real_sum, self.da_loss_fake_sum,
              self.db_loss_sum, self.db_loss_real_sum, self.db_loss_fake_sum,
              self.d_loss_sum]
         )
 
-        self.test_A = tf.placeholder(tf.float32,
+        self.test_A = tf.compat.v1.placeholder(tf.float32,
                                      [None, self.image_size, self.image_size,
                                       self.input_c_dim], name='test_A')
-        self.test_B = tf.placeholder(tf.float32,
+        self.test_B = tf.compat.v1.placeholder(tf.float32,
                                      [None, self.image_size, self.image_size,
                                       self.output_c_dim], name='test_B')
         self.testB = self.generator(self.test_A, self.options, True, name="generatorA2B")
         self.testA = self.generator(self.test_B, self.options, True, name="generatorB2A")
 
-        t_vars = tf.trainable_variables()
+        t_vars = tf.compat.v1.trainable_variables()
         self.d_vars = [var for var in t_vars if 'discriminator' in var.name]
         self.g_vars = [var for var in t_vars if 'generator' in var.name]
         for var in t_vars: print(var.name)
 
     def train(self, args):
         """Train cyclegan"""
-        self.lr = tf.placeholder(tf.float32, None, name='learning_rate')
-        self.d_optim = tf.train.AdamOptimizer(self.lr, beta1=args.beta1) \
+        self.lr = tf.compat.v1.placeholder(tf.float32, None, name='learning_rate')
+        self.d_optim = tf.compat.v1.train.AdamOptimizer(self.lr, beta1=args.beta1) \
             .minimize(self.d_loss, var_list=self.d_vars)
-        self.g_optim = tf.train.AdamOptimizer(self.lr, beta1=args.beta1) \
+        self.g_optim = tf.compat.v1.train.AdamOptimizer(self.lr, beta1=args.beta1) \
             .minimize(self.g_loss, var_list=self.g_vars)
 
-        init_op = tf.global_variables_initializer()
+        init_op = tf.compat.v1.global_variables_initializer()
         self.sess.run(init_op)
-        self.writer = tf.summary.FileWriter("./logs", self.sess.graph)
+        self.writer = tf.compat.v1.summary.FileWriter("./logs", self.sess.graph)
 
         counter = 1
         start_time = time.time()
@@ -224,7 +224,7 @@ class cyclegan(object):
 
     def test(self, args):
         """Test cyclegan"""
-        init_op = tf.global_variables_initializer()
+        init_op = tf.compat.v1.global_variables_initializer()
         self.sess.run(init_op)
         if args.which_direction == 'AtoB':
             sample_files = glob('./datasets/{}/*.*'.format(self.dataset_dir + '/testA'))
