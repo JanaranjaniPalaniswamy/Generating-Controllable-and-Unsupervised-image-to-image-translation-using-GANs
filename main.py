@@ -5,7 +5,7 @@ if __name__ == '__main__':
     AUTOTUNE = tf.data.experimental.AUTOTUNE
 
     # loading dataset from file
-    dataset_real = glob.glob("C:/Users/User/Documents/HCI Lab/img_align_celeba/*.jpg")
+    dataset_real = glob.glob("/bigpool/export/users/datasets_faprak2020/CelebAMask-HQ/CelabA-HQ-img/*.jpg")
     dataset_comic = glob.glob("/bigpool/export/users/datasets_faprak2020/facemaker/*")
 
     # Count of dataset
@@ -33,7 +33,7 @@ if __name__ == '__main__':
 
     def random_jitter(image):
         # resizing to 286 x 286 x 3
-        image = tf.image.resize(image, [256, 256],
+        image = tf.image.resize(image, [286, 286],
                                 method=tf.image.ResizeMethod.NEAREST_NEIGHBOR)
 
         # randomly cropping to 256 x 256 x 3
