@@ -5,7 +5,7 @@ if __name__ == '__main__':
     AUTOTUNE = tf.data.experimental.AUTOTUNE
 
     # loading dataset from file
-    dataset_real = glob.glob("/bigpool/export/users/datasets_faprak2020/CelebAMask-HQ/CelabA-HQ-img/*.jpg")
+    dataset_real = glob.glob("/bigpool/export/users/datasets_faprak2020/CelebAMask-HQ/CelebA-HQ-img/*")
     dataset_comic = glob.glob("/bigpool/export/users/datasets_faprak2020/facemaker/*")
 
     # Count of dataset
