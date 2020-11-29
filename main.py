@@ -37,7 +37,7 @@ if __name__ == '__main__':
                                 method=tf.image.ResizeMethod.NEAREST_NEIGHBOR)
 
         # randomly cropping to 256 x 256 x 3
-        image = random_crop(image)
+        # image = random_crop(image)
 
         # random mirroring
         image = tf.image.random_flip_left_right(image)
