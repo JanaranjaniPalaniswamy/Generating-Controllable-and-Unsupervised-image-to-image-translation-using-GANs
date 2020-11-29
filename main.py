@@ -27,7 +27,7 @@ if __name__ == '__main__':
 
     def random_crop(image):
         cropped_image = tf.image.random_crop(
-            image, size=[IMG_HEIGHT, IMG_WIDTH, 3])
+            image, size=[IMG_HEIGHT, IMG_WIDTH])
 
         return cropped_image
 
