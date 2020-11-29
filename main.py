@@ -1,5 +1,6 @@
 import tensorflow as tf
 import glob
+import numpy as np
 
 if __name__ == '__main__':
     AUTOTUNE = tf.data.experimental.AUTOTUNE
@@ -32,15 +33,12 @@ if __name__ == '__main__':
         return cropped_image
 
     def random_jitter(image):
-        print(image)
         # resizing to 286 x 286 x 3
         image = tf.image.resize(image, [286, 286],
                                 method=tf.image.ResizeMethod.NEAREST_NEIGHBOR)
 
-        print(image)
-
         # randomly cropping to 256 x 256 x 3
-        # image = random_crop(image)
+        image = random_crop(image)
 
         # random mirroring
         image = tf.image.random_flip_left_right(image)
@@ -52,10 +50,19 @@ if __name__ == '__main__':
         return image
 
     def parse_func(filename):
-        image_string = tf.io.read_file(filename)  # Read the image
-        image_decoded = tf.image.decode_jpeg(image_string)  # Decode the image
-        print(image_decoded)
-        image = tf.image.convert_image_dtype(image_decoded, tf.float32)  # Normalize the image
+        # Read the image
+        image_string = tf.io.read_file(filename)
+
+        # Decode the image
+        image_decoded = tf.image.decode_jpeg(image_string)
+
+        # Channel = 3
+        image = np.resize(image_decoded, (256, 256, 3))
+
+        # Normalize the image
+        image = tf.cast(image, tf.float32)
+        image = (image / 255)
+
         return image
 
     train_comic = train_comic.map(
