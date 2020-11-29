@@ -77,3 +77,5 @@ if __name__ == '__main__':
     test_real = test_real.map(
         parse_func, num_parallel_calls=AUTOTUNE).cache().shuffle(
         BUFFER_SIZE).batch(BATCH_SIZE)
+
+    print("Done Preprocessing")
