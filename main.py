@@ -57,10 +57,11 @@ if __name__ == '__main__':
 
         # Decode the image
         image_decoded = tf.image.decode_jpeg(image_string, channels=3)
-
+        print(image_decoded)
         # Normalize the image
         image = tf.cast(image_decoded, tf.float32)
         image = (image / 255)
+        print(image)
 
         return image
 
