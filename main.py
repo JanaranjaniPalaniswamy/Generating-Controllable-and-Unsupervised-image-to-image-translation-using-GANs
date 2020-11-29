@@ -1,6 +1,5 @@
 import tensorflow as tf
 import glob
-import numpy as np
 
 if __name__ == '__main__':
     AUTOTUNE = tf.data.experimental.AUTOTUNE
@@ -48,8 +47,6 @@ if __name__ == '__main__':
         # random mirroring
         image = tf.image.random_flip_left_right(image)
 
-        print(image)
-
         return image
 
     def test_parse_func(filename):
@@ -62,8 +59,6 @@ if __name__ == '__main__':
         # Normalize the image
         image = tf.cast(image_decoded, tf.float32)
         image = (image / 255)
-
-        print(image)
 
         return image
 
