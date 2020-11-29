@@ -14,8 +14,8 @@ if __name__ == '__main__':
     dataset_real_training_count = int(dataset_real_count * 0.8)
     dataset_comic_training_count = int(dataset_comic_count * 0.8)
 
-    train_comic, train_real = dataset_comic[0:dataset_comic_training_count], dataset_real[0:dataset_real_training_count]
-    test_comic, test_real = dataset_comic[dataset_comic_training_count:dataset_comic_count], dataset_real[dataset_real_training_count:dataset_real_count]
+    train_comic, train_real = tf.data.Dataset.from_tensor_slices(dataset_comic[0:dataset_comic_training_count]), tf.data.Dataset.from_tensor_slices(dataset_real[0:dataset_real_training_count])
+    test_comic, test_real = tf.data.Dataset.from_tensor_slices(dataset_comic[dataset_comic_training_count:dataset_comic_count]), tf.data.Dataset.from_tensor_slices(dataset_real[dataset_real_training_count:dataset_real_count])
 
     BUFFER_SIZE = 1000
     BATCH_SIZE = 1
