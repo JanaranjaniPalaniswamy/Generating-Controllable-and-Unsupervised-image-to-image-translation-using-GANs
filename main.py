@@ -27,19 +27,21 @@ if __name__ == '__main__':
     IMG_HEIGHT = 256
 
     def random_crop(image):
+        print(image)
         cropped_image = tf.image.random_crop(
             image, size=[IMG_HEIGHT, IMG_WIDTH, 3])
 
         return cropped_image
 
     def random_jitter(image):
+        print(image)
         # resizing to 286 x 286 x 3
         image = tf.image.resize(image, [286, 286],
                                 method=tf.image.ResizeMethod.NEAREST_NEIGHBOR)
 
         # randomly cropping to 256 x 256 x 3
         image = random_crop(image)
-
+        print(image)
         # random mirroring
         image = tf.image.random_flip_left_right(image)
 
