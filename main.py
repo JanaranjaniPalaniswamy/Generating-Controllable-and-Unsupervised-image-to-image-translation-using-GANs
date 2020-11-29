@@ -3,10 +3,10 @@ import tensorflow as tf
 if __name__ == '__main__':
     AUTOTUNE = tf.data.experimental.AUTOTUNE
 
-    dataset, metadata = None# Load Dataset here
+    dataset, metadata = None  # Load Dataset here
 
-    train_horse, train_zebra = DataSet(dataset['trainA'], dataset['trainB'])
-    test_horse, test_zebra = DataSet(dataset['testA'], dataset['testB'])
+    train_comic, train_real = dataset['trainA'], dataset['trainB']
+    test_comic, test_real = dataset['testA'], dataset['testB']
 
     BUFFER_SIZE = 1000
     BATCH_SIZE = 1
@@ -53,18 +53,18 @@ if __name__ == '__main__':
         return image
 
 
-    train_horses = train_horse.map(
+    train_comic = train_comic.map(
         preprocess_image_train, num_parallel_calls=AUTOTUNE).cache().shuffle(
-        BUFFER_SIZE).batch(1)
+        BUFFER_SIZE).batch(BATCH_SIZE)
 
-    train_zebras = train_zebra.map(
+    train_real = train_real.map(
         preprocess_image_train, num_parallel_calls=AUTOTUNE).cache().shuffle(
-        BUFFER_SIZE).batch(1)
+        BUFFER_SIZE).batch(BATCH_SIZE)
 
-    test_horses = test_horse.map(
+    test_comic = test_comic.map(
         preprocess_image_test, num_parallel_calls=AUTOTUNE).cache().shuffle(
-        BUFFER_SIZE).batch(1)
+        BUFFER_SIZE).batch(BATCH_SIZE)
 
-    test_zebras = test_zebra.map(
+    test_real = test_real.map(
         preprocess_image_test, num_parallel_calls=AUTOTUNE).cache().shuffle(
-        BUFFER_SIZE).batch(1)
+        BUFFER_SIZE).batch(BATCH_SIZE)
