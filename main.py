@@ -54,13 +54,10 @@ if __name__ == '__main__':
         image_string = tf.io.read_file(filename)
 
         # Decode the image
-        image_decoded = tf.image.decode_jpeg(image_string)
-
-        # Channel = 3
-        image = np.resize(image_decoded, (256, 256, 3))
+        image_decoded = tf.image.decode_jpeg(image_string, channels=3)
 
         # Normalize the image
-        image = tf.cast(image, tf.float32)
+        image = tf.cast(image_decoded, tf.float32)
         image = (image / 255)
 
         return image
