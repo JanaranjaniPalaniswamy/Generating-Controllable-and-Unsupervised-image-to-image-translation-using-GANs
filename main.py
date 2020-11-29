@@ -12,7 +12,7 @@ if __name__ == '__main__':
     dataset_comic_count = 26020
 
     dataset_real_training_count = dataset_real_count * 0.8
-    dataset_comic_training_count = dataset_comic * 0.8
+    dataset_comic_training_count = dataset_comic_count * 0.8
 
     train_comic, train_real = dataset_comic[0:dataset_comic_training_count], dataset_real[0:dataset_real_training_count]
     test_comic, test_real = dataset_comic[dataset_comic_training_count:dataset_comic_count], dataset_real[dataset_real_training_count:dataset_real_count]
