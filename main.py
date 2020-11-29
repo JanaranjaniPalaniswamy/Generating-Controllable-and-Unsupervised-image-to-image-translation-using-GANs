@@ -62,17 +62,17 @@ if __name__ == '__main__':
         return image
 
 
-    train_comic = train_comic.map(
-        preprocess_image_train, num_parallel_calls=AUTOTUNE).cache().shuffle(
-        BUFFER_SIZE).batch(BATCH_SIZE)
+    # train_comic = train_comic.map(
+      #  preprocess_image_train, num_parallel_calls=AUTOTUNE).cache().shuffle(
+      #  BUFFER_SIZE).batch(BATCH_SIZE)
 
     train_real = train_real.map(
         preprocess_image_train, num_parallel_calls=AUTOTUNE).cache().shuffle(
         BUFFER_SIZE).batch(BATCH_SIZE)
 
-    test_comic = test_comic.map(
-        preprocess_image_test, num_parallel_calls=AUTOTUNE).cache().shuffle(
-        BUFFER_SIZE).batch(BATCH_SIZE)
+    # test_comic = test_comic.map(
+       # preprocess_image_test, num_parallel_calls=AUTOTUNE).cache().shuffle(
+       # BUFFER_SIZE).batch(BATCH_SIZE)
 
     test_real = test_real.map(
         preprocess_image_test, num_parallel_calls=AUTOTUNE).cache().shuffle(
