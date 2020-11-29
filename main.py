@@ -26,67 +26,57 @@ if __name__ == '__main__':
     IMG_WIDTH = 256
     IMG_HEIGHT = 256
 
-    def random_crop(image):
-        print(image)
-        cropped_image = tf.image.random_crop(
-            image, size=[IMG_HEIGHT, IMG_WIDTH, 3])
-
-        return cropped_image
-
-    def random_jitter(image):
-        print(image)
-        # resizing to 286 x 286 x 3
-        image = tf.image.resize(image, [286, 286],
-                                method=tf.image.ResizeMethod.NEAREST_NEIGHBOR)
-
-        # randomly cropping to 256 x 256 x 3
-        image = random_crop(image)
-        print(image)
-        # random mirroring
-        image = tf.image.random_flip_left_right(image)
-
-        return image
-
-    def jitter_image_train(image):
-        image = random_jitter(image)
-        return image
-
-    def parse_func(filename):
+    def train_parse_func(filename):
         # Read the image
         image_string = tf.io.read_file(filename)
 
         # Decode the image
         image_decoded = tf.image.decode_jpeg(image_string, channels=3)
-        print(image_decoded)
+
         # Normalize the image
         image = tf.cast(image_decoded, tf.float32)
         image = (image / 255)
-        print(image)
+
+        # resizing to 286 x 286 x 3
+        image = tf.image.resize(image, [286, 286],
+                                method=tf.image.ResizeMethod.NEAREST_NEIGHBOR)
+
+        # randomly cropping to 256 x 256 x 3
+        image = tf.image.random_crop(
+            image, size=[IMG_HEIGHT, IMG_WIDTH, 3])
+
+        # random mirroring
+        image = tf.image.random_flip_left_right(image)
+
+        return image
+
+    def test_parse_func(filename):
+        # Read the image
+        image_string = tf.io.read_file(filename)
+
+        # Decode the image
+        image_decoded = tf.image.decode_jpeg(image_string, channels=3)
+
+        # Normalize the image
+        image = tf.cast(image_decoded, tf.float32)
+        image = (image / 255)
 
         return image
 
     train_comic = train_comic.map(
-        parse_func, num_parallel_calls=AUTOTUNE).cache().shuffle(
-        BUFFER_SIZE).batch(BATCH_SIZE)
-
-    train_comic = train_comic.map(
-        jitter_image_train, num_parallel_calls=AUTOTUNE).cache().shuffle(
+        train_parse_func, num_parallel_calls=AUTOTUNE).cache().shuffle(
         BUFFER_SIZE).batch(BATCH_SIZE)
 
     train_real = train_real.map(
-        parse_func, num_parallel_calls=AUTOTUNE).cache().shuffle(
-        BUFFER_SIZE).batch(BATCH_SIZE)
-
-    train_real = train_real.map(
-        jitter_image_train, num_parallel_calls=AUTOTUNE).cache().shuffle(
+        train_parse_func, num_parallel_calls=AUTOTUNE).cache().shuffle(
         BUFFER_SIZE).batch(BATCH_SIZE)
 
     test_comic = test_comic.map(
-        parse_func, num_parallel_calls=AUTOTUNE).cache().shuffle(
+        test_parse_func, num_parallel_calls=AUTOTUNE).cache().shuffle(
         BUFFER_SIZE).batch(BATCH_SIZE)
 
     test_real = test_real.map(
-        parse_func, num_parallel_calls=AUTOTUNE).cache().shuffle(
+        test_parse_func, num_parallel_calls=AUTOTUNE).cache().shuffle(
         BUFFER_SIZE).batch(BATCH_SIZE)
 
     print("Done Preprocessing")
