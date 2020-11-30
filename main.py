@@ -1,5 +1,6 @@
 import tensorflow as tf
 import glob
+import matplotlib.pyplot as plt
 
 if __name__ == '__main__':
     AUTOTUNE = tf.data.experimental.AUTOTUNE
@@ -25,6 +26,11 @@ if __name__ == '__main__':
     IMG_WIDTH = 256
     IMG_HEIGHT = 256
 
+    def print_image(subplot, name, image):
+        plt.subplot(subplot)
+        plt.title(name)
+        plt.imshow(image * 0.5 + 0.5)
+
     def train_parse_func(filename):
         # Read the image
         image_string = tf.io.read_file(filename)
@@ -32,20 +38,30 @@ if __name__ == '__main__':
         # Decode the image
         image_decoded = tf.image.decode_jpeg(image_string, channels=3)
 
+        print_image(121, 'Before Normalizing', image_decoded)
+
         # Normalize the image
         image = tf.cast(image_decoded, tf.float32)
         image = (image / 255)
+
+        print_image(122, 'After Normalizing', image)
 
         # resizing to 286 x 286 x 3
         image = tf.image.resize(image, [286, 286],
                                 method=tf.image.ResizeMethod.NEAREST_NEIGHBOR)
 
+        print_image(123, 'After resizing to 286x286', image)
+
         # randomly cropping to 256 x 256 x 3
         image = tf.image.random_crop(
             image, size=[IMG_HEIGHT, IMG_WIDTH, 3])
 
+        print_image(124, 'After random crop', image)
+
         # random mirroring
         image = tf.image.random_flip_left_right(image)
+
+        print(125, 'After random mirroring', image)
 
         return image
 
@@ -56,9 +72,13 @@ if __name__ == '__main__':
         # Decode the image
         image_decoded = tf.image.decode_jpeg(image_string, channels=3)
 
+        print_image(121, 'Before Normalizing', image_decoded)
+
         # Normalize the image
         image = tf.cast(image_decoded, tf.float32)
         image = (image / 255)
+
+        print_image(122, 'After Normalizing', image)
 
         return image
 
@@ -78,4 +98,4 @@ if __name__ == '__main__':
         test_parse_func, num_parallel_calls=AUTOTUNE).cache().shuffle(
         BUFFER_SIZE).batch(BATCH_SIZE)
 
-    print("Done Preprocessing")
+    print("Done Pre processing")
