@@ -8,8 +8,8 @@ if __name__ == '__main__':
     AUTOTUNE = tf.data.experimental.AUTOTUNE
 
     # loading dataset from file
-    dataset_real = glob.glob("/bigpool/export/users/datasets_faprak2020/CelebAMask-HQ/CelebA-HQ-img/*")
-    dataset_comic = glob.glob("/bigpool/export/users/datasets_faprak2020/facemaker/*")
+    dataset_real = glob.glob("/home/ragavendrankk/celebA_ds/*")
+    dataset_comic = glob.glob("/home/ragavendrankk/facemaker_ds/*")
 
     # Count of dataset
     dataset_real_count = 30000
@@ -105,32 +105,28 @@ if __name__ == '__main__':
 
     def generator_model():
         generator = tf.keras.Sequential()
-        generator.add(layers.Dense(7 * 7 * 256, use_bias=False, input_shape=(100,)))
+
+        generator.add(layers.Conv2D(128, (5, 5), strides=(1, 1), padding='same',
+                                    input_shape=[256, 256, 3]))
+        assert generator.output_shape == (None, 256, 256, 128)
         generator.add(layers.BatchNormalization())
         generator.add(layers.LeakyReLU())
 
-        generator.add(layers.Reshape((7, 7, 256)))
-        assert generator.output_shape == (None, 7, 7, 256)
-
-        generator.add(layers.Conv2DTranspose(128, (5, 5), strides=(1, 1), padding='same', use_bias=False))
-        assert generator.output_shape == (None, 7, 7, 128)
+        generator.add(layers.Conv2D(64, (5, 5), strides=(1, 1), padding='same', use_bias=False))
+        print(generator.output_shape)
+        assert generator.output_shape == (None, 256, 256, 64)
         generator.add(layers.BatchNormalization())
         generator.add(layers.LeakyReLU())
 
-        generator.add(layers.Conv2DTranspose(64, (5, 5), strides=(2, 2), padding='same', use_bias=False))
-        assert generator.output_shape == (None, 14, 14, 64)
-        generator.add(layers.BatchNormalization())
-        generator.add(layers.LeakyReLU())
-
-        generator.add(layers.Conv2DTranspose(1, (5, 5), strides=(2, 2), padding='same', use_bias=False, activation='tanh'))
-        assert generator.output_shape == (None, 28, 28, 1)
+        generator.add(layers.Conv2D(3, (5, 5), strides=(1, 1), padding='same', use_bias=False, activation='tanh'))
+        assert generator.output_shape == (None, 256, 256, 3)
 
         return generator
 
     def discriminator_model():
         discriminator = tf.keras.Sequential()
         discriminator.add(layers.Conv2D(64, (5, 5), strides=(2, 2), padding='same',
-                                input_shape=[28, 28, 1]))
+                                        input_shape=[256, 256, 3]))
         discriminator.add(layers.LeakyReLU())
         discriminator.add(layers.Dropout(0.3))
 
