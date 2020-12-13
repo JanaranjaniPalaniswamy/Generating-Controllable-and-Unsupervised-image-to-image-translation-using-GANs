@@ -1,8 +1,9 @@
 import tensorflow as tf
 import glob
 import matplotlib.pyplot as plt
-from tensorflow.keras import layers
 import time
+from Generator import Generator
+from Discriminator import Discriminator
 
 if __name__ == '__main__':
     AUTOTUNE = tf.data.experimental.AUTOTUNE
@@ -102,45 +103,9 @@ if __name__ == '__main__':
 
     print("Done Pre processing")
 
+    generator = Generator().generator
 
-    def generator_model():
-        generator = tf.keras.Sequential()
-
-        generator.add(layers.Conv2D(128, (5, 5), strides=(1, 1), padding='same',
-                                    input_shape=[256, 256, 3]))
-        assert generator.output_shape == (None, 256, 256, 128)
-        generator.add(layers.BatchNormalization())
-        generator.add(layers.LeakyReLU())
-
-        generator.add(layers.Conv2D(64, (5, 5), strides=(1, 1), padding='same', use_bias=False))
-        print(generator.output_shape)
-        assert generator.output_shape == (None, 256, 256, 64)
-        generator.add(layers.BatchNormalization())
-        generator.add(layers.LeakyReLU())
-
-        generator.add(layers.Conv2D(3, (5, 5), strides=(1, 1), padding='same', use_bias=False, activation='tanh'))
-        assert generator.output_shape == (None, 256, 256, 3)
-
-        return generator
-
-    def discriminator_model():
-        discriminator = tf.keras.Sequential()
-        discriminator.add(layers.Conv2D(64, (5, 5), strides=(2, 2), padding='same',
-                                        input_shape=[256, 256, 3]))
-        discriminator.add(layers.LeakyReLU())
-        discriminator.add(layers.Dropout(0.3))
-
-        discriminator.add(layers.Conv2D(128, (5, 5), strides=(2, 2), padding='same'))
-        discriminator.add(layers.LeakyReLU())
-        discriminator.add(layers.Dropout(0.3))
-
-        discriminator.add(layers.Flatten())
-        discriminator.add(layers.Dense(1))
-
-        return discriminator
-
-    generator = generator_model()
-    discriminator = discriminator_model()
+    discriminator = Discriminator().discriminator
 
     sample_comic = next(iter(train_comic))
     sample_real = next(iter(train_real))
@@ -203,18 +168,17 @@ if __name__ == '__main__':
 
     def generate_images(model, test_input):
         prediction = model(test_input)
-
         plt.figure(figsize=(12, 12))
-
         display_list = [test_input[0], prediction[0]]
         title = ['Input Image', 'Predicted Image']
-
         for i in range(2):
             plt.subplot(1, 2, i + 1)
             plt.title(title[i])
+
             # getting the pixel values between [0, 1] to plot it.
             plt.imshow(display_list[i] * 0.5 + 0.5)
             plt.axis('off')
+
         plt.show()
 
     @tf.function
