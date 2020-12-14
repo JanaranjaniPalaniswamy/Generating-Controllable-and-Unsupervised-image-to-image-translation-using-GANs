@@ -1,20 +1,31 @@
 import tensorflow as tf
-from tensorflow.keras import layers
+import tensorflow.keras as keras
 
 
-class Discriminator:
-    discriminator = None
+def create_discriminator(input_shape=(64, 64, 3), dim=64, n_downsamplings=3, norm='instance_norm'):
+    dim_ = dim
+    Norm = keras.layers.BatchNormalization
 
-    def __init__(self):
-        self.discriminator = tf.keras.Sequential()
-        self.discriminator.add(layers.Conv2D(64, (5, 5), strides=(2, 2), padding='same',
-                                             input_shape=[256, 256, 3]))
-        self.discriminator.add(layers.LeakyReLU())
-        self.discriminator.add(layers.Dropout(0.3))
+    # Layer 0
+    h = inputs = keras.Input(shape=input_shape)
 
-        self.discriminator.add(layers.Conv2D(128, (5, 5), strides=(2, 2), padding='same'))
-        self.discriminator.add(layers.LeakyReLU())
-        self.discriminator.add(layers.Dropout(0.3))
+    # Layer 1
+    h = keras.layers.Conv2D(dim, 4, strides=2, padding='same')(h)
+    h = tf.nn.leaky_relu(h, alpha=0.2)
 
-        self.discriminator.add(layers.Flatten())
-        self.discriminator.add(layers.Dense(1))
+    for _ in range(n_downsamplings - 1):
+        dim = min(dim * 2, dim_ * 8)
+        h = keras.layers.Conv2D(dim, 4, strides=2, padding='same', use_bias=False)(h)
+        h = Norm()(h)
+        h = tf.nn.leaky_relu(h, alpha=0.2)
+
+    # Layer 2
+    dim = min(dim * 2, dim_ * 8)
+    h = keras.layers.Conv2D(dim, 4, strides=1, padding='same', use_bias=False)(h)
+    h = Norm()(h)
+    h = tf.nn.leaky_relu(h, alpha=0.2)
+
+    # Layer 3
+    h = keras.layers.Conv2D(1, 4, strides=1, padding='same')(h)
+
+    return keras.Model(inputs=inputs, outputs=h)

@@ -1,25 +1,55 @@
 import tensorflow as tf
-from tensorflow.keras import layers
+import tensorflow.keras as keras
 
 
-class Generator:
-    generator = None
+def create_generator(input_shape=(64, 64, 3), output_channels=3, dim=64, n_downsamplings=2, n_blocks=9, norm='instance_norm'):
+    Norm = keras.layers.BatchNormalization
 
-    def __init__(self):
-        self.generator = tf.keras.Sequential()
+    def _residual_block(x):
+        dim = x.shape[-1]
+        h = x
 
-        self.generator.add(layers.Conv2D(128, (5, 5), strides=(1, 1), padding='same',
-                                         input_shape=[256, 256, 3]))
-        assert self.generator.output_shape == (None, 256, 256, 128)
-        self.generator.add(layers.BatchNormalization())
-        self.generator.add(layers.LeakyReLU())
+        h = tf.pad(h, [[0, 0], [1, 1], [1, 1], [0, 0]], mode='REFLECT')
+        h = keras.layers.Conv2D(dim, 3, padding='valid', use_bias=False)(h)
+        h = Norm()(h)
+        h = tf.nn.relu(h)
 
-        self.generator.add(layers.Conv2D(64, (5, 5), strides=(1, 1), padding='same', use_bias=False))
-        print(self.generator.output_shape)
-        assert self.generator.output_shape == (None, 256, 256, 64)
-        self.generator.add(layers.BatchNormalization())
-        self.generator.add(layers.LeakyReLU())
+        h = tf.pad(h, [[0, 0], [1, 1], [1, 1], [0, 0]], mode='REFLECT')
+        h = keras.layers.Conv2D(dim, 3, padding='valid', use_bias=False)(h)
+        h = Norm()(h)
 
-        self.generator.add(layers.Conv2D(3, (5, 5), strides=(1, 1), padding='same', use_bias=False, activation='tanh'))
-        assert self.generator.output_shape == (None, 256, 256, 3)
+        return keras.layers.add([x, h])
 
+    # Layer 0
+    h = inputs = keras.Input(shape=input_shape)
+
+    # layer 1
+    h = tf.pad(h, [[0, 0], [3, 3], [3, 3], [0, 0]], mode='REFLECT')
+    h = keras.layers.Conv2D(dim, 7, padding='valid', use_bias=False)(h)
+    h = Norm()(h)
+    h = tf.nn.relu(h)
+
+    # layer 2
+    for _ in range(n_downsamplings):
+        dim *= 2
+        h = keras.layers.Conv2D(dim, 3, strides=2, padding='same', use_bias=False)(h)
+        h = Norm()(h)
+        h = tf.nn.relu(h)
+
+    # layer 3
+    for _ in range(n_blocks):
+        h = _residual_block(h)
+
+    # layer 4
+    for _ in range(n_downsamplings):
+        dim //= 2
+        h = keras.layers.Conv2DTranspose(dim, 3, strides=2, padding='same', use_bias=False)(h)
+        h = Norm()(h)
+        h = tf.nn.relu(h)
+
+    # Layer 5
+    h = tf.pad(h, [[0, 0], [3, 3], [3, 3], [0, 0]], mode='REFLECT')
+    h = keras.layers.Conv2D(output_channels, 7, padding='valid')(h)
+    h = tf.tanh(h)
+
+    return keras.Model(inputs=inputs, outputs=h)
