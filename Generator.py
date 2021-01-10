@@ -1,10 +1,14 @@
 import tensorflow as tf
 import tensorflow.keras as keras
+from tensorflow.keras.layers import Layer, InputSpec
+from tensorflow.keras import initializers, regularizers, constraints
+from tensorflow.keras import backend as K
+from InstanceNorm import InstanceNormalization
 
+def create_generator(input_shape=(128, 128, 3), output_channels=3, dim=64, n_downsamplings=2, n_blocks=9, norm='instance_norm'):
 
-def create_generator(input_shape=(64, 64, 3), output_channels=3, dim=64, n_downsamplings=2, n_blocks=9, norm='instance_norm'):
-    Norm = keras.layers.BatchNormalization
-
+    Norm = InstanceNormalization
+    
     def _residual_block(x):
         dim = x.shape[-1]
         h = x
@@ -17,9 +21,10 @@ def create_generator(input_shape=(64, 64, 3), output_channels=3, dim=64, n_downs
         h = tf.pad(h, [[0, 0], [1, 1], [1, 1], [0, 0]], mode='REFLECT')
         h = keras.layers.Conv2D(dim, 3, padding='valid', use_bias=False)(h)
         h = Norm()(h)
-
+        
         return keras.layers.add([x, h])
-
+    
+    
     # Layer 0
     h = inputs = keras.Input(shape=input_shape)
 

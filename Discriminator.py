@@ -1,10 +1,15 @@
 import tensorflow as tf
 import tensorflow.keras as keras
+from tensorflow.keras.layers import Layer, InputSpec
+from tensorflow.keras import initializers, regularizers, constraints
+from tensorflow.keras import backend as K
+from InstanceNorm import InstanceNormalization
 
 
-def create_discriminator(input_shape=(64, 64, 3), dim=64, n_downsamplings=3, norm='instance_norm'):
+def create_discriminator(input_shape=(128, 128, 3), dim=64, n_downsamplings=3, norm='instance_norm'):
     dim_ = dim
-    Norm = keras.layers.BatchNormalization
+    
+    Norm = InstanceNormalization
 
     # Layer 0
     h = inputs = keras.Input(shape=input_shape)
