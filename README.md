@@ -17,10 +17,16 @@ Install the following dependencies:
 Run any of the .ipynb file :
 
 &nbsp;&nbsp;&nbsp;&nbsp;To run cycle gan full(forard and backward) with ls loss - Main_CycleGAN_LS_loss.ipynb (Baseline)
+
 &nbsp;&nbsp;&nbsp;&nbsp;To run cycle gan forward with BCE loss - Main_ForwardCycleGAN_BCE.ipynb (Our Experiment)
+
 &nbsp;&nbsp;&nbsp;&nbsp;To run cycle gan forward with Wloss - Main_ForwardCycleGAN_Wloss.ipynb (Our Experiment)
+
 &nbsp;&nbsp;&nbsp;&nbsp;To run cycle gan full(forward and backward) with Wloss - Main_CycleGAN_Wloss.ipynb (Our Proposal)
+
 &nbsp;&nbsp;&nbsp;&nbsp;To run cycle gan full(forward and backward) with Wloss, Weight decay, feature loss - Main_CycleGAN_FeatureCycleLoss_WeightDecay.ipynb (Our Proposal)
+
+
 
 Once the steps are done the Checkpoints, Sample Training result and Sample Test result are stored in the output_dir that was given. The output of all the types of main file is stored in different folder with different name.
 
