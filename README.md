@@ -30,6 +30,8 @@ Install the following dependencies:
 
 Once the steps are done the Checkpoints, Sample Training result and Sample Test result are stored in the output_dir that was given. The output of all the types of main file is stored in different folder with different name.
 
+The already run .ipynb files are in the files - Main_CycleGAN_LS_loss_With_Output.ipynb, Main_ForwardCycleGAN_BCE_With_Output.ipynb, Main_ForwardCycleGAN_Wloss_With_Output.ipynb, Main_CycleGAN_Wloss_With_Output.ipynb, Main_CycleGAN_FeatureCycleLoss_WeightDecay_With_Output.ipynb.
+
 ## Results
 
 ### Cycle GAN Full with LS loss
@@ -55,10 +57,18 @@ Once the steps are done the Checkpoints, Sample Training result and Sample Test 
 
 ### Cycle GAN Full with W loss
 #### Sample Training
+![Full_CycleGAN_W_Training](/uploads/26d45012a28e50abfbf8348a4f3b3ec8/Full_CycleGAN_W_Training.PNG)
 #### Sample Testing
+![Full_CycleGAN_W_Testing_A2B](/uploads/90622d80cf4538161b04f3792791bc36/Full_CycleGAN_W_Testing_A2B.PNG)
+
+![Full_CycleGAN_W_Testing_B2A](/uploads/35e271ed94c45bfdb16912620b97c158/Full_CycleGAN_W_Testing_B2A.PNG)
 
 ### Cycle GAN Full with Feature loss and Weight Decay
 #### Sample Training
+![Full_CycleGAN_Feature_Weight_Training](/uploads/951810ce32f609189f54070101939bde/Full_CycleGAN_Feature_Weight_Training.PNG)
 #### Sample Testing
+![Full_CycleGAN_Feature_Weight_Testing_A2B](/uploads/fa2f37f2561538969f52810b19ff66ad/Full_CycleGAN_Feature_Weight_Testing_A2B.PNG)
+
+![Full_CycleGAN_Feature_Weight_Testing_B2A](/uploads/2a45e64da2424280949a416833cd2ca1/Full_CycleGAN_Feature_Weight_Testing_B2A.PNG)
 
 Reference repo : https://github.com/LynnHo/CycleGAN-Tensorflow-2.
