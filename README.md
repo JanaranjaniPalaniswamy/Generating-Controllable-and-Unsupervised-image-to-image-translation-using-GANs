@@ -47,7 +47,7 @@ The already run .ipynb files are in the files - Main_CycleGAN_LS_loss_With_Outpu
 
 ### Cycle GAN Forward with BCE loss
 #### Sample Training
-##### Comic to Real to Comic and Real to Comic to Real
+##### Comic to Real to Comic
 ![Forward_CycleGAN_BCE_Training](/uploads/8b41e96d55dfb80fc7afbe2993103489/Forward_CycleGAN_BCE_Training.PNG)
 #### Sample Testing
 ##### Comic to Real to Comic
@@ -55,7 +55,7 @@ The already run .ipynb files are in the files - Main_CycleGAN_LS_loss_With_Outpu
 
 ### Cycle GAN Forward with W loss
 #### Sample Training
-##### Comic to Real to Comic and Real to Comic to Real
+##### Comic to Real to Comic
 ![Forward_CycleGAN_W_Testing](/uploads/6376ac8b85f4d8884de2bce8cfe01452/Forward_CycleGAN_W_Testing.PNG)
 #### Sample Testing
 ##### Comic to Real to Comic
