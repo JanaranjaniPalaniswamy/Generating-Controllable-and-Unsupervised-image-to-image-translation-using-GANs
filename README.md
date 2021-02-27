@@ -34,14 +34,16 @@ Once the steps are done the Checkpoints, Sample Training result and Sample Test 
 
 ### Cycle GAN Full with LS loss
 #### Sample Training
-#### Sample Test
-
-### Cycle GAN Forward with BCE loss
-#### Sample Training
 ![Full_CycleGAN_LS_Training](/uploads/67125bf52ef664569641699139f0d1c1/Full_CycleGAN_LS_Training.PNG)
 #### Sample Test
 ![Full_CycleGAN_LS_Testing_A2B](/uploads/b9239a22b49888675b1b3f8d2e9229fd/Full_CycleGAN_LS_Testing_A2B.PNG)
+
 ![Full_CycleGAN_LS_Testing_B2A](/uploads/917f68e633df07979fad7209558bd2be/Full_CycleGAN_LS_Testing_B2A.PNG)
+
+
+### Cycle GAN Forward with BCE loss
+#### Sample Training
+#### Sample Test
 
 ### Cycle GAN Forward with W loss
 #### Sample Training
