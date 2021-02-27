@@ -36,39 +36,49 @@ The already run .ipynb files are in the files - Main_CycleGAN_LS_loss_With_Outpu
 
 ### Cycle GAN Full with LS loss
 #### Sample Training
+##### Comic to Real to Comic and Real to Comic to Real
 ![Full_CycleGAN_LS_Training](/uploads/67125bf52ef664569641699139f0d1c1/Full_CycleGAN_LS_Training.PNG)
 #### Sample Testing
+##### Comic to Real to Comic
 ![Full_CycleGAN_LS_Testing_A2B](/uploads/b9239a22b49888675b1b3f8d2e9229fd/Full_CycleGAN_LS_Testing_A2B.PNG)
-
+##### Real to Comic to Real
 ![Full_CycleGAN_LS_Testing_B2A](/uploads/917f68e633df07979fad7209558bd2be/Full_CycleGAN_LS_Testing_B2A.PNG)
 
 
 ### Cycle GAN Forward with BCE loss
 #### Sample Training
+##### Comic to Real to Comic and Real to Comic to Real
 ![Forward_CycleGAN_BCE_Training](/uploads/8b41e96d55dfb80fc7afbe2993103489/Forward_CycleGAN_BCE_Training.PNG)
 #### Sample Testing
+##### Comic to Real to Comic
 ![Forward_CycleGAN_BCE_Testing](/uploads/aa0c84962f56ceeb34e7702610a3b8bf/Forward_CycleGAN_BCE_Testing.PNG)
 
 ### Cycle GAN Forward with W loss
 #### Sample Training
+##### Comic to Real to Comic and Real to Comic to Real
 ![Forward_CycleGAN_W_Testing](/uploads/6376ac8b85f4d8884de2bce8cfe01452/Forward_CycleGAN_W_Testing.PNG)
 #### Sample Testing
+##### Comic to Real to Comic
 ![Forward_CycleGAN_W_Training](/uploads/6731bff202de8c2e045c7f125852fb3d/Forward_CycleGAN_W_Training.PNG)
 
 ### Cycle GAN Full with W loss
 #### Sample Training
+##### Comic to Real to Comic and Real to Comic to Real
 ![Full_CycleGAN_W_Training](/uploads/26d45012a28e50abfbf8348a4f3b3ec8/Full_CycleGAN_W_Training.PNG)
 #### Sample Testing
+##### Comic to Real to Comic
 ![Full_CycleGAN_W_Testing_A2B](/uploads/90622d80cf4538161b04f3792791bc36/Full_CycleGAN_W_Testing_A2B.PNG)
-
+##### Real to Comic to Real
 ![Full_CycleGAN_W_Testing_B2A](/uploads/35e271ed94c45bfdb16912620b97c158/Full_CycleGAN_W_Testing_B2A.PNG)
 
 ### Cycle GAN Full with Feature loss and Weight Decay
 #### Sample Training
+##### Comic to Real to Comic and Real to Comic to Real
 ![Full_CycleGAN_Feature_Weight_Training](/uploads/951810ce32f609189f54070101939bde/Full_CycleGAN_Feature_Weight_Training.PNG)
 #### Sample Testing
+##### Comic to Real to Comic
 ![Full_CycleGAN_Feature_Weight_Testing_A2B](/uploads/fa2f37f2561538969f52810b19ff66ad/Full_CycleGAN_Feature_Weight_Testing_A2B.PNG)
-
+##### Real to Comic to Real
 ![Full_CycleGAN_Feature_Weight_Testing_B2A](/uploads/2a45e64da2424280949a416833cd2ca1/Full_CycleGAN_Feature_Weight_Testing_B2A.PNG)
 
 Reference repo : https://github.com/LynnHo/CycleGAN-Tensorflow-2.
