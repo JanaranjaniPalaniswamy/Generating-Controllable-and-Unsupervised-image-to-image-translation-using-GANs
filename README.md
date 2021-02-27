@@ -35,7 +35,7 @@ Once the steps are done the Checkpoints, Sample Training result and Sample Test 
 ### Cycle GAN Full with LS loss
 #### Sample Training
 ![Full_CycleGAN_LS_Training](/uploads/67125bf52ef664569641699139f0d1c1/Full_CycleGAN_LS_Training.PNG)
-#### Sample Test
+#### Sample Testing
 ![Full_CycleGAN_LS_Testing_A2B](/uploads/b9239a22b49888675b1b3f8d2e9229fd/Full_CycleGAN_LS_Testing_A2B.PNG)
 
 ![Full_CycleGAN_LS_Testing_B2A](/uploads/917f68e633df07979fad7209558bd2be/Full_CycleGAN_LS_Testing_B2A.PNG)
@@ -43,18 +43,22 @@ Once the steps are done the Checkpoints, Sample Training result and Sample Test 
 
 ### Cycle GAN Forward with BCE loss
 #### Sample Training
-#### Sample Test
+![Forward_CycleGAN_BCE_Training](/uploads/8b41e96d55dfb80fc7afbe2993103489/Forward_CycleGAN_BCE_Training.PNG)
+#### Sample Testing
+![Forward_CycleGAN_BCE_Testing](/uploads/aa0c84962f56ceeb34e7702610a3b8bf/Forward_CycleGAN_BCE_Testing.PNG)
 
 ### Cycle GAN Forward with W loss
 #### Sample Training
-#### Sample Test
+![Forward_CycleGAN_W_Testing](/uploads/6376ac8b85f4d8884de2bce8cfe01452/Forward_CycleGAN_W_Testing.PNG)
+#### Sample Testing
+![Forward_CycleGAN_W_Training](/uploads/6731bff202de8c2e045c7f125852fb3d/Forward_CycleGAN_W_Training.PNG)
 
 ### Cycle GAN Full with W loss
 #### Sample Training
-#### Sample Test
+#### Sample Testing
 
 ### Cycle GAN Full with Feature loss and Weight Decay
 #### Sample Training
-#### Sample Test
+#### Sample Testing
 
 Reference repo : https://github.com/LynnHo/CycleGAN-Tensorflow-2.
