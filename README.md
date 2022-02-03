@@ -81,4 +81,5 @@ The already run .ipynb files are in the files - Main_CycleGAN_LS_loss_With_Outpu
 ##### Real to Comic to Real
 ![Full_CycleGAN_Feature_Weight_Testing_B2A](/uploads/2a45e64da2424280949a416833cd2ca1/Full_CycleGAN_Feature_Weight_Testing_B2A.PNG)
 
-Reference repo : https://github.com/LynnHo/CycleGAN-Tensorflow-2.
+## Reference
+repo : https://github.com/LynnHo/CycleGAN-Tensorflow-2.
