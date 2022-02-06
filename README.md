@@ -46,10 +46,10 @@ Once the steps are done the Checkpoints, Sample Training result and Sample Test 
 <p align="left"> <img src="pics/Cycle_wloss.png" width="70%" /> </p>
 
 ### Qualitative Comparison
-<p align="left"> <img src="pics/results_comparison.png" width="70%" /> </p>
+<p align="left"> <img src="pics/results_comparison.png" width="90%" /> </p>
   
 ### Quantitative Evaluation
-<p align="left"> <img src="pics/metrics.png" width="70%" /> </p>  
+<p align="left"> <img src="pics/metrics.png" width="90%" /> </p>  
 
 ## Reference:
 CycleGAN model is used as a baseline model : https://github.com/LynnHo/CycleGAN-Tensorflow-2.
