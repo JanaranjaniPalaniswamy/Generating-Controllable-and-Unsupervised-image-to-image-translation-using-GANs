@@ -4,6 +4,8 @@ Aims to perform image-to-image translation using unpaired datasets. In this work
 CycleGAN model is used as a baseline model, various experiments are conducted to do the ablation study of the baseline model for the given facemaker and CelebA datasets.
 As a result, wasserstein loss is proposed to be used as an adversarial loss function which gives a satisfactory result. In addition, an attempt is made to improve the translation output by modified cycle loss (weight decay and feature based loss).
 
+Report: Topic_3__Generating_Controllable_and_Realistic_Images_by_Unsupervised_Image_to_Image_Translation.pdf
+
 ## Dependencies:
 
 Install the following dependencies:
